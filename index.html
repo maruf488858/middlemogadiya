@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মধ্যম মঘাদিয়া এলাকা সেবা পোর্টাল</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* নোটিশ বার */
+        .notice-bar {
+            background-color: #d32f2f;
+            color: white;
+            padding: 8px 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .notice-title {
+            background: #b71c1c;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+
+        header {
+            background-color: #00796b;
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            color: #00796b;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* জরুরি বাটন */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .btn {
+            background-color: #d32f2f;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            display: block;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .btn-service {
+            background-color: #00796b;
+        }
+
+        /* কারিগর ও সেবা সেকশন */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .service-card {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .service-card h4 {
+            color: #00796b;
+            margin-bottom: 5px;
+        }
+
+        .service-card p {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .call-link {
+            display: inline-block;
+            color: #2e7d32;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* ছবি গ্যালারি */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* কোরআন সেকশন */
+        .para-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .para-btn {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        #quran-viewer {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #00796b;
+            display: none;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .ayah-box {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .arabic-text {
+            font-size: 18px;
+            text-align: right;
+            color: #1b5e20;
+            margin-bottom: 5px;
+        }
+
+        .bengali-text {
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* হারিয়ে যাওয়া বিজ্ঞপ্তি */
+        .notice-item {
+            background: #fffde7;
+            border-left: 4px solid #fbc02d;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            background: #e0f2f1;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ১. চলমান নোটিশ -->
+    <div class="notice-bar">
+        <span class="notice-title">জরুরি নোটিশ</span>
+        <marquee behavior="scroll" direction="left">
+            স্বাগতম! মধ্যম মঘাদিয়া ইউনিয়ন সেবা পোর্টালে। যেকোনো জরুরি রক্তদানের জন্য সেবা টিমের সাথে যোগাযোগ করুন। আপনার এলাকার যেকোনো তথ্য বা সার্ভিস যোগ করতে এডমিনের সাথে কথা বলুন।
+        </marquee>
+    </div>
+
+    <header>
+        <h1>মধ্যম মঘাদিয়া ডিজিটাল সেবা পোর্টাল</h1>
+        <p>আমাদের গ্রাম, আমাদের ডিজিটাল তথ্য কেন্দ্র</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ২. এলাকা পরিচিতি -->
+        <div class="card">
+            <h2>🏘️ এলাকার পরিচিতি</h2>
+            <p style="font-size: 14px; line-height: 1.6; color: #444;">
+                মধ্যম মঘাদিয়া প্রাকৃতিক সৌন্দর্যে ঘেরা একটি ঐতিহ্যবাহী এলাকা। এখানে সম্প্রীতি ও ভ্রাতৃত্বের সাথে সকল মানুষ বসবাস করে। শিক্ষা, সংস্কৃতি ও ডিজিটাল সেবায় এগিয়ে যাওয়াই আমাদের মূল লক্ষ্য।
+            </p>
+        </div>
+
+        <!-- ৩. জরুরি সেবা -->
+        <div class="card">
+            <h2>🚨 জরুরি সেবা</h2>
+            <div class="btn-grid">
+                <a href="tel:999" class="btn">জাতীয় সেবা (৯৯৯)</a>
+                <a href="tel:01700000000" class="btn">ফায়ার সার্ভিস</a>
+                <a href="tel:01800000000" class="btn">মিরসরাই থানা</a>
+                <a href="tel:01900000000" class="btn">সরকারি অ্যাম্বুলেন্স</a>
+                <a href="tel:01600000000" class="btn">বিদ্যুৎ অভিযোগ</a>
+            </div>
+        </div>
+
+        <!-- ৪. স্বাস্থ্য ও রক্তদান -->
+        <div class="card">
+            <h2>🩸 রক্তদান ও স্বাস্থ্য সেবা</h2>
+            <p style="font-size: 13px; color: #555; margin-bottom: 10px;">জরুরি রক্ত লাগবে? অথবা রক্তদাতা হতে চান?</p>
+            <div class="btn-grid">
+                <a href="tel:01800000000" class="btn btn-service">রক্তদাতা ক্লাব</a>
+                <a href="tel:01700000000" class="btn btn-service">উপজেলা স্বাস্থ্য কমপ্লেক্স</a>
+                <a href="tel:01500000000" class="btn btn-service">স্থানীয় ফার্মেসি/ডাক্তার</a>
+            </div>
+        </div>
+
+        <!-- ৫. স্থানীয় কারিগর ও সেবা -->
+        <div class="card">
+            <h2>🛠️ স্থানীয় সেবা ও কারিগর তালিকা</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h4>⚡ ইলেকট্রিশিয়ান</h4>
+                    <p>মোঃ রফিক - হাউজ ওয়ারিং</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+                <div class="service-card">
+                    <h4>🧱 রাজমিস্ত্রি</h4>
+                    <p>কামাল হোসেন - বিল্ডিং কন্ট্রাক্টর</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+                <div class="service-card">
+                    <h4>🪚 কাঠমিস্ত্রি</h4>
+                    <p>আব্দুল গফুর - ফার্নিচার মিস্ত্রি</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+                <div class="service-card">
+                    <h4>🚰 প্লাম্বার (পাইপ মিস্ত্রি)</h4>
+                    <p>মোঃ সজিব - ফিটিং ও মোটর</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+                <div class="service-card">
+                    <h4>🛠️ মেকানিক</h4>
+                    <p>জসিম ওয়ার্কশপ - বাইক ও ইঞ্জিন</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+                <div class="service-card">
+                    <h4>📱 মোবাইল/কম্পিউটার সার্ভিস</h4>
+                    <p>ডিজিটাল টেলিকম - লক ও ফিক্সিং</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+                <div class="service-card">
+                    <h4>🛺 গাড়ি / অটো সার্ভিস</h4>
+                    <p>আলমগীর - সিএনজি/অটো ড্রাইভ</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+                <div class="service-card">
+                    <h4>📸 ফটোগ্রাফার</h4>
+                    <p>আরিফ ডিজিটাল স্টুডিও & ইভেন্ট</p>
+                    <a href="tel:01800000000" class="call-link">📞 কল করুন</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ৬. শিক্ষা প্রতিষ্ঠান -->
+        <div class="card">
+            <h2>🎓 শিক্ষা প্রতিষ্ঠান</h2>
+            <ul style="padding-left: 20px; font-size: 14px; line-height: 1.8;">
+                <li><strong>মধ্যম মঘাদিয়া প্রাথমিক বিদ্যালয়</strong></li>
+                <li><strong>মঘাদিয়া উচ্চ বিদ্যালয়</strong></li>
+                <li><strong>স্থানীয় জামিয়া মাদরাসা ও হেফজখানা</strong></li>
+            </ul>
+        </div>
+
+        <!-- ৭. সেচ্ছাসেবী কার্যক্রম -->
+        <div class="card">
+            <h2>🤝 সেচ্ছাসেবী কার্যক্রম</h2>
+            <p style="font-size: 14px; line-height: 1.5;">
+                আমাদের এলাকায় তরুণদের উদ্যোগে ব্লাড ডোনেশন, গাছ লাগানো, দরিদ্র শিক্ষার্থীদের সহায়তা এবং দুর্যোগকালীন ত্রাণ বিতরণের কাজ পরিচালিত হয়।
+            </p>
+        </div>
+
+        <!-- ৮. আল-কোরআন (৩০ পারা) -->
+        <div class="card">
+            <h2>📖 আল-কোরআন (৩০ পারা)</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 10px;">যেকোনো পারায় চাপ দিলে সরাসরি আরবি ও বাংলা অর্থ দেখাবে:</p>
+            <div class="para-grid" id="para-buttons-container"></div>
+            
+            <div id="quran-viewer">
+                <h3 id="para-title" style="color: #00796b; margin-bottom: 10px;"></h3>
+                <div id="para-content">তথ্য লোড হচ্ছে...</div>
+            </div>
+        </div>
+
+        <!-- ৯. হারানো / পাওয়া বিজ্ঞপ্তি -->
+        <div class="card">
+            <h2>🔍 হারানো ও প্রাপ্তি বিজ্ঞপ্তি</h2>
+            <div class="notice-item">
+                <strong>একটি কালো মানিব্যাগ পাওয়া গেছে</strong><br>
+                স্থান: মঘাদিয়া বাজার সংলগ্ন | যোগাযোগের নম্বর: 01800000000
+            </div>
+            <div class="notice-item">
+                <strong>একটি লাল রঙের স্কুল ব্যাগ হারানো গেছে</strong><br>
+                সন্ধান পেলে অনুগ্রহ করে যোগাযোগ করুন: 01700000000
+            </div>
+        </div>
+
+        <!-- ১০. এলাকার ছবি -->
+        <div class="card">
+            <h2>🖼️ এলাকার সুন্দর কিছু মুহূর্ত</h2>
+            <div class="gallery-grid">
+                <img src="https://picsum.photos/300/200?random=1" alt="এলাকা ১">
+                <img src="https://picsum.photos/300/200?random=2" alt="এলাকা ২">
+                <img src="https://picsum.photos/300/200?random=3" alt="এলাকা ৩">
+                <img src="https://picsum.photos/300/200?random=4" alt="এলাকা ৪">
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© ২০২৬ | মধ্যম মঘাদিয়া অল-ইন-ওয়ান ডিজিটাল পোর্টাল</p>
+    </footer>
+
+    <script>
+        // ৩০ টি পারার বাটন জেনারেটর
+        var btnContainer = document.getElementById('para-buttons-container');
+        for (var i = 1; i <= 30; i++) {
+            var btn = document.createElement('button');
+            btn.className = 'para-btn';
+            btn.innerText = i + ' পারা';
+            btn.setAttribute('onclick', 'fetchJuz(' + i + ')');
+            btnContainer.appendChild(btn);
+        }
+
+        // কোরআন লোডার এপিআই
+        function fetchJuz(juzNumber) {
+            var viewer = document.getElementById('quran-viewer');
+            var title = document.getElementById('para-title');
+            var content = document.getElementById('para-content');
+
+            viewer.style.display = 'block';
+            title.innerText = juzNumber + " নম্বর পারা (আরবি ও বাংলা)";
+            content.innerHTML = "<p style='color: #888;'>কোরআন শরীফ লোড হচ্ছে...</p>";
+
+            Promise.all([
+                fetch('https://api.alquran.cloud/v1/juz/' + juzNumber + '/quran-uthmani').then(res => res.json()),
+                fetch('https://api.alquran.cloud/v1/juz/' + juzNumber + '/bn.bengali').then(res => res.json())
+            ]).then(data => {
+                var ayahsArabic = data[0].data.ayahs;
+                var ayahsBangla = data[1].data.ayahs;
+
+                var html = "";
+                for (var i = 0; i < ayahsArabic.length; i++) {
+                    html += '<div class="ayah-box">' +
+                                '<div class="arabic-text">' + ayahsArabic[i].text + ' ﴿' + ayahsArabic[i].numberInSurah + '﴾</div>' +
+                                '<div class="bengali-text"><strong>অর্থ:</strong> ' + ayahsBangla[i].text + '</div>' +
+                            '</div>';
+                }
+                content.innerHTML = html;
+            }).catch(error => {
+                content.innerHTML = "<p style='color: red;'>তথ্য লোড করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন।</p>";
+            });
+        }
+    </script>
+</body>
+</html>
