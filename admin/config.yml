@@ -1,0 +1,31 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "notice"
+    label: "জরুরি নোটিশ ও বার্তা"
+    files:
+      - file: "data/notice.json"
+        label: "নোটিশ আপডেট"
+        name: "notice_data"
+        fields:
+          - { label: "নোটিশের শিরোনাম", name: "title", widget: "string" }
+          - { label: "বিস্তারিত বার্তা", name: "details", widget: "text" }
+
+  - name: "emergency_contacts"
+    label: "জরুরি সেবাসমূহ"
+    files:
+      - file: "data/contacts.json"
+        label: "যোগাযোগের নম্বরসমূহ"
+        name: "contacts_data"
+        fields:
+          - label: "তালিকা"
+            name: "list"
+            widget: "list"
+            fields:
+              - { label: "সেবার নাম (যেমন: হাসপাতাল/অ্যাম্বুলেন্স)", name: "service", widget: "string" }
+              - { label: "ফোন নম্বর", name: "phone", widget: "string" }
